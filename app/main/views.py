@@ -1,7 +1,9 @@
+from ast import Not
 from datetime import datetime
 import imp
 from flask import render_template, session, redirect, url_for, flash, abort, request, current_app, make_response
 from flask_login import login_required, current_user
+from numpy import require
 from . import main
 from .forms import EditProfileForm, NameForm, PostForm
 from .. import db
@@ -10,19 +12,25 @@ from ..decorators import admin_required, permission_required
 from .pics import picData
 import os
 
-
-
 # 刚进网站的主页
 @main.route('/', methods=['GET', 'POST'])
 def index():
     
-    if request.method == 'POST':
-        filename = "static/save/" + str(pics['count']) + ".png"
+    if request.method == 'POST' and request.files['choose-img'] is not None:
+        print("add!")
+        id = picData.addPicture(current_user.id)
+        filename = os.path.dirname(__file__)[0:-4] + 'static\\save\\' + str(id) + '.png'
+        print(filename)
         img = request.files['choose-img']
         img.save(filename)
+        return redirect(url_for('.new', id=id))
 
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login'))
+
+    print('###')
+    print(current_user.id)
+
     form = PostForm()
     if current_user.can(Permission.WRITE) and form.validate_on_submit():
         post = Post(body=form.body.data, author=current_user._get_current_object())

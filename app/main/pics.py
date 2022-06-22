@@ -22,15 +22,23 @@ class Pictures:
         self.pics['pic'][id - 1]['starer'][stid] = starer
         self.save()
 
-    def insertPicture(self, owner):
+    def setDescribe(self, id, str):
+        self.pics['pic'][id - 1]['describe'] = str
+        self.save()
+
+    def addPicture(self, owner):
         self.pics['count'] += 1
         id = self.pics['count']
         inform = {
             "owner": owner,
             "star": 0,
+            "describe": "测试",
             "starer": []
         }
-        self.pics[id - 1] = inform
+        while(self.pics['user'].size() <= owner - 100):
+            self.pics['user'].append([])
+        self.pics['user'][owner - 100].append(id)
+        self.pics['pic'].append(inform)
         self.save()
         return id
 
