@@ -1,4 +1,5 @@
 from datetime import datetime
+import imp
 from flask import render_template, session, redirect, url_for, flash, abort, request, current_app, make_response
 from flask_login import login_required, current_user
 from . import main
@@ -6,18 +7,20 @@ from .forms import EditProfileForm, NameForm, PostForm
 from .. import db
 from ..models import Permission, User, Post
 from ..decorators import admin_required, permission_required
+from .pics import picData
 import os
 
-image_count = 0
+
 
 # 刚进网站的主页
 @main.route('/', methods=['GET', 'POST'])
 def index():
-    global image_count
-    image_count = image_count + 1
-    filename = str(image_count) + ".png"
-    img = request.files['choose-img']
-    img.save(filename)
+    
+    if request.method == 'POST':
+        filename = "static/save/" + str(pics['count']) + ".png"
+        img = request.files['choose-img']
+        img.save(filename)
+
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login'))
     form = PostForm()
