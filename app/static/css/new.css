@@ -1,0 +1,25 @@
+.up-img {
+    height: 40%;
+    width: 50%;
+}
+
+.text-in {
+    margin: 30px;
+    color: #8a8a8a;
+    background-color: #f6f6f6;
+    outline-style: none;
+    width: 50%;
+    border-bottom: 2px solid rgb(214, 214, 214);
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+}
+
+.my-btn {
+    border: 0px;
+    border-radius: 8px;
+    background-color: #3a77fa;
+    color: white;
+    width: 100px;
+    height: 34px;
+}

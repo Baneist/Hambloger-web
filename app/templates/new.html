@@ -5,6 +5,7 @@
 
 {% block head %}
 <link href="{{ url_for('static',filename='css/post.css') }}" rel="stylesheet">
+<link href="{{ url_for('static',filename='css/new.css') }}" rel="stylesheet">
 <header class="top-cover"></header>
 {% endblock %}
 
@@ -12,23 +13,20 @@
 <br/>
 <div class="page-container py-2">
     <div class="title-container py-3 page-heading">
-        <h1>发表文章</h1>
+        <h1>图语 - 发表</h1>
     </div>
 </div>
 <div class="posts py-3">
-    {% if current_user.can(Permission.WRITE) %}
-    <form method="POST">
-        {{ form.hidden_tag() }}
-        {{ form.title(class="form-control w-100 py-2",placeholder="标题") }}
-        <div class="py-2"></div>
-        {{ form.sub_title(class="form-control w-100 py-2",placeholder="副标题") }}
-        <div class="py-2"></div>
-        {{ form.body(class="form-control", placeholder="要写点什么？") }}
-        <div class="mx-auto py-3 row justify-content-center">
-            {{ form.submit(class="btn btn-primary") }}
-        </div>
-    </form>
-    {% endif %}
+    <div style="height: 20px;"></div>
+    <center>
+        <img class="up-img" src="{{url_for('static', filename='save/1.jpeg')}}">
+        <form id="post-post" method="POST" enctype="multipart/form-data">
+            <input type="text" value="谈一谈你的感想吧~" class="text-in">
+            <div>
+                <button class="button-lg my-btn" onclick="document.getElementById('post-post').submit()"> 确认发布 </button>
+            </div>
+        </form>
+    </center>
 </div>
 {% endblock %}
 
