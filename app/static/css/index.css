@@ -13,7 +13,7 @@
     display: block;
     height: 100%;
     background-color: #f0f0f0;
-}
+}zc
 
 .photo-container 
 {
@@ -28,5 +28,11 @@
 }
 
 .my-btn {
-    background-color: #9bb6f1;
+    background-color: #3a77fa;
+    width: 160px;
+    height: 42px;
+    border: 0px;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: larger;
 }

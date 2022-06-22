@@ -33,7 +33,7 @@
         </button>
         <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
-                <input type="text" class="form-control bg-light border-0 small" placeholder="今天写计科导了吗"
+                <input type="text" class="form-control bg-light border-0 small" placeholder="搜索用户"
                        aria-label="Search" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="button">
@@ -52,11 +52,12 @@
                     </a>
                 </li>
                 <!--{% if edit_post.id %}-->
+                
                 <li class="nav-item">
                     <a class="nav-link px-lg-3 py-3 py-lg-4"
                        href="{{ url_for('main.new', id=edit_post.id) }}">
                         <!--<img src="{{ url_for('static', filename='icons/sidebar-write.png') }} " class="sidebar-img">-->
-                        <span>发表文章</span>
+                        <span>编辑</span>
                     </a>
                 </li>
                 <!--{% endif %}-->

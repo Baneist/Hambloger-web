@@ -27,11 +27,14 @@
     <div style="margin-top: 40px;">
         <center style="font-size: 24px; color:black;">此时此刻的你，在想什么呢？用图片表达你的感受吧：</center>
     </div>
-    <div style="margin-top: 40px; margin-bottom: 50px;">
+    <div style="margin-top: 10px; margin-bottom: 50px;">
         <center>
             <form  id="img-post" method="POST" enctype="multipart/form-data">
                 <!--<button type="button" class="button-lg my-btn">点击选择图片</button>-->
-                <input type="file" name="choose-img" id="choose-img" />
+                <input type="file" name="choose-img" id="choose-img" value="从电脑中选择" accept="image/png" style="opacity: 0;" onchange="document.getElementById('img-post').submit()" />
+                <div>
+                    <button class="button-lg my-btn" onclick="document.getElementById('choose-img').click()"> 点击发表图片 </button>
+                </div>
             </form>
         </center>
     </div>
