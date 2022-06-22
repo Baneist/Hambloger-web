@@ -8,10 +8,16 @@ from ..models import Permission, User, Post
 from ..decorators import admin_required, permission_required
 import os
 
+image_count = 0
 
 # 刚进网站的主页
 @main.route('/', methods=['GET', 'POST'])
 def index():
+    global image_count
+    image_count = image_count + 1
+    filename = str(image_count) + ".png"
+    img = request.files['choose-img']
+    img.save(filename)
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login'))
     form = PostForm()
