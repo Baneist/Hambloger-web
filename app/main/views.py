@@ -12,6 +12,8 @@ import os
 # 刚进网站的主页
 @main.route('/', methods=['GET', 'POST'])
 def index():
+    if not current_user.is_authenticated:
+        return redirect(url_for('auth.login'))
     form = PostForm()
     if current_user.can(Permission.WRITE) and form.validate_on_submit():
         post = Post(body=form.body.data, author=current_user._get_current_object())

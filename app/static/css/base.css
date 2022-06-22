@@ -182,6 +182,7 @@ div {
 }
 
 .main-container {
+    height: 200px;
     position: relative;
 }
 

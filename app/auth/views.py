@@ -37,7 +37,7 @@ def login():
 def logout():
     logout_user()
     flash('你已退出当前用户')
-    return redirect(url_for('main.index'))
+    return redirect(url_for('auth.login'))
 
 
 @auth.route('/register', methods=['GET', 'POST'])
