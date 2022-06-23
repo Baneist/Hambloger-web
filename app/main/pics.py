@@ -17,7 +17,21 @@ class Pictures:
     def __init__(self):
         with open('pictures.db', 'r', encoding='utf-8') as file:
             self.pics = json.load(file)
-            
+
+    def getOwner(self, id):
+        return self.pics['pic'][id-1]['owner']
+
+    def getOwnPictureNum(self, user):
+        return len(self.pics['user'][user - 100])
+
+    def getOwnPicture(self, user):
+        return self.pics['user'][user - 100]
+
+    def getStarPictureNum(self, user):
+        return len(self.pics['stared'][user - 100])
+
+    def getStarPicture(self, user):
+        return self.pics['stared'][user - 100]
 
     def save(self):
         with open('pictures.db', 'w', encoding='utf-8') as file:
@@ -30,9 +44,8 @@ class Pictures:
         return self.pics['pic'][id - 1]
 
     def addStar(self, id, starer):
-        stid = self.pics['pic'][id - 1]['star']
         self.pics['pic'][id - 1]['star'] += 1
-        self.pics['pic'][id - 1]['starer'][stid] = starer
+        self.pics['pic'][id - 1]['starer'].append(starer)
         self.pics['stared'][starer - 100].append(id)
         self.save()
 
@@ -66,5 +79,11 @@ class Pictures:
             if i != id - 1 and judge(id, i + 1) > 0.1:
                 ans.append(i + 1)
         return ans
+
+    def isStared(self, user, picid):
+        return user in self.pics['pic'][picid - 1]['starer']
+
+    def isOwner(self, user, picid):
+        return picid in self.pics['user'][user-100]
 
 picData = Pictures()

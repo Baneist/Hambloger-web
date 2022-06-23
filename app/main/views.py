@@ -126,8 +126,11 @@ def detail(id):
 @main.route('/picture/<int:id>', methods=['GET', 'POST'])
 @login_required
 def picture(id):
-
-    return render_template('picture.html')
+    stared = picData.isStared(current_user.id, id)
+    owned = picData.isOwner(current_user.id, id)
+    owner = picData.getOwner(id)
+    ownername = User.query.filter_by(id=id).first().username
+    return render_template('picture.html', star=stared, own=owned, id=id, owner=owner, own_num=picData.getOwnPictureNum(owner), star_num=picData.getStarPictureNum(owner), ownername=ownername)
 
 # 用户个人主页
 @main.route('/user/<username>')
@@ -143,6 +146,19 @@ def user(username):
         error_out=False)
     return render_template('user.html', user=user, posts=posts, endpoint='.user', pagination=pagination, edit_post=edit_post)
 
+@main.route('/star/<int:id>')
+@login_required
+def star(id):
+    if not picData.isStared(current_user.id, id):
+        picData.addStar(id, current_user.id)
+    return redirect(url_for('.picture', id=id))
+
+@main.route('/unstar/<int:id>')
+@login_required
+def unstar(id):
+    if picData.isStared(current_user.id, id):
+        picData.delStar(id, current_user.id)
+    return redirect(url_for('.picture', id=id))
 
 # 编辑个人资料
 @main.route('/edit-profile', methods=['GET', 'POST'])

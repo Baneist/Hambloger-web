@@ -1,16 +1,57 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Hambloger - 发表{% endblock %}
+{% block title %}图语 - 图片{% endblock %}
 
 {% block head %}
-<link href="{{ url_for('static',filename='css/detail.css') }}" rel="stylesheet">
+<link href="{{ url_for('static',filename='css/picture.css') }}" rel="stylesheet">
 <link href="{{ url_for('static',filename='css/post.css') }}" rel="stylesheet">
 <header class="top-cover"></header>
 {% endblock %}
 
 {% block page_content %}
-
+<div class="bg-container">
+    <div style="height: 25px;"></div>
+    <div class="work-left work-container">
+        <h3 class="title">偶尔抓拍 这张图真的好好看！</h3>
+        {% if star %}
+            <a href="{{ url_for('.unstar', id=id) }}"><img src="../static/img/star.png" class="star" /></a>
+        {% else %}
+            <a href="{{ url_for('.star', id=id) }}"><img src="../static/img/unstar.png" class="star" /></a>
+        {% endif %}
+        <center>
+            <img class="work-img" src="../static/save/{{id}}.png" />
+        </center>
+        
+    </div>
+    <div class="work-right work-container">
+        <div style="margin-top: 30px;"></div>
+        <center>
+            <img src= "../static/mask/{{owner}}.png" class="mask" />
+            <a href="#"><div class="ownername">{{ownername}}</div></a>
+        </center>
+        <center>
+        <div class="owner-status">
+            <a href="#">
+                <div class="own status">
+                    <center>
+                        <div>发表</div>
+                        <div>{{own_num}}</div>
+                    </center>
+                </div>
+            </a>
+            <a href="#">
+                <div class="status">
+                    <center>
+                        <div>收藏</div>
+                        <div>{{star_num}}</div>
+                    </center>
+                </div>
+            </a>
+        </div>
+        </center>
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
