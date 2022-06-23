@@ -17,7 +17,6 @@ import os
 def index():
     
     if request.method == 'POST' and request.files['choose-img'] is not None:
-        print("add!")
         id = picData.addPicture(current_user.id)
         filename = os.path.dirname(__file__)[0:-4] + 'static\\save\\' + str(id) + '.png'
         print(filename)
@@ -54,7 +53,6 @@ def index():
                            show_followed=show_followed, pagination=pagination, edit_post=edit_post)
 
 
-# 查看全部文章
 @main.route('/all')
 @login_required
 def show_all():
@@ -63,7 +61,6 @@ def show_all():
     return resp
 
 
-# 查看关注者的文章
 @main.route('/followed')
 @login_required
 def show_followed():
@@ -72,7 +69,6 @@ def show_followed():
     return resp
 
 
-# 查看帖子
 @main.route('/post/<int:id>')
 def post(id):
     post = Post.query.get_or_404(id)
@@ -81,7 +77,6 @@ def post(id):
                            edit_post=edit_post)
 
 
-# 编辑帖子的页面
 @main.route('/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
@@ -103,33 +98,36 @@ def edit(id):
     return render_template('edit_post.html', form=form, posts=[post], edit_post=edit_post)
 
 
-# 新建帖子的页面
+# 新建图片描述的页面
 @main.route('/new/<int:id>', methods=['GET', 'POST'])
 @login_required
 def new(id):
-    form = PostForm()
-    if current_user.can(Permission.WRITE) and form.validate_on_submit():
-        post = Post(body=form.body.data, author=current_user._get_current_object(),
-                    title=form.title.data, sub_title=form.sub_title.data)
-        db.session.add(post)
-        db.session.commit()
-        return redirect(url_for('.index'))
+    if request.method == 'POST' and request.form['describe'] is not None:
+        picData.setDescribe(id, request.form['describe'])
+        return redirect(url_for('.detail', id=id))
     page = request.args.get('page', 1, type=int)
     show_followed = False
     if current_user.is_authenticated:
         show_followed = bool(request.cookies.get('show_followed', ''))
-    if show_followed:
-        query = current_user.followed_posts
-    else:
-        query = Post.query
     pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
         page, per_page=current_app.config['HAMBLOGER_POSTS_PER_PAGE'],
         error_out=False)
     posts = pagination.items
     edit_post = Post.query.order_by(Post.id.desc()).first()
-    return render_template('new.html', form=form, posts=posts,
-                           show_followed=show_followed, pagination=pagination, edit_post=edit_post)
+    return render_template('new.html', img_id=id)
 
+@main.route('/detail/<int:id>', methods=['GET', 'POST'])
+@login_required
+def detail(id):
+    simpics = picData.calcSimilar(id)
+    print(simpics)
+    return render_template('detail.html', simpics=simpics)
+
+@main.route('/picture/<int:id>', methods=['GET', 'POST'])
+@login_required
+def picture(id):
+
+    return render_template('picture.html')
 
 # 用户个人主页
 @main.route('/user/<username>')

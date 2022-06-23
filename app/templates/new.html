@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Hambloger - 发表{% endblock %}
+{% block title %}图语 - 发表{% endblock %}
 
 {% block head %}
 <link href="{{ url_for('static',filename='css/post.css') }}" rel="stylesheet">
@@ -19,9 +19,9 @@
 <div class="posts py-3">
     <div style="height: 20px;"></div>
     <center>
-        <img class="up-img" src="{{url_for('static', filename='save/1.jpeg')}}">
-        <form id="post-post" method="POST" enctype="multipart/form-data">
-            <input type="text" value="谈一谈你的感想吧~" class="text-in">
+        <img class="up-img" src="../static/save/{{img_id}}.png">
+        <form id="post-post" method="POST" enctype="multipart/form-data" >
+            <input type="text" value="谈一谈你的感想吧~" class="text-in" name="describe">
             <div>
                 <button class="button-lg my-btn" onclick="document.getElementById('post-post').submit()"> 确认发布 </button>
             </div>

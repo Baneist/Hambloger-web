@@ -4,15 +4,106 @@
 {% block title %}Hambloger - 发表{% endblock %}
 
 {% block head %}
+<link href="{{ url_for('static',filename='css/detail.css') }}" rel="stylesheet">
 <link href="{{ url_for('static',filename='css/post.css') }}" rel="stylesheet">
-<link href="{{ url_for('static',filename='css/new.css') }}" rel="stylesheet">
 <header class="top-cover"></header>
 {% endblock %}
 
 {% block page_content %}
 
 
-
+<div class="save" style="margin-top: 10px;"></div>
+<div class="all-container">
+    {% for pic in simpics %}
+        <div class="item-box">
+            <div class="bg">
+                <a href="#">
+                    <img src="../static/save/{{pic}}.png" class="img-container">
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+    <!--
+    <div class="item-box">
+        <div class="bg">
+        <img src="../static/save/1.png" class="img-container">
+        </div>
+    </div>
+    
+    <div class="item-box">
+        <div class="bg">
+        <img src="../static/save/1.png" class="img-container">
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="bg">
+        <img src="../static/save/1.png" class="img-container">
+        </div>
+    </div>
+    
+    <div class="item-box">
+        <div class="bg">
+        <img src="../static/save/1.png" class="img-container">
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="bg">
+        <img src="../static/save/1.png" class="img-container">
+        </div>
+    </div>
+    
+    <div class="item-box">
+        <div class="bg">
+        <img src="../static/save/1.png" class="img-container">
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="bg">
+        <img src="../static/save/1.png" class="img-container">
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="bg">
+        <img src="../static/save/1.png" class="img-container">
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="bg">
+        <img src="../static/save/1.png" class="img-container">
+        </div>
+    </div>
+    
+    <div class="item-box">
+        <div class="bg">
+        <img src="../static/save/1.png" class="img-container">
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="bg">
+        <img src="../static/save/1.png" class="img-container">
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="bg">
+        <img src="../static/save/1.png" class="img-container">
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="bg">
+        <img src="../static/save/1.png" class="img-container">
+        </div>
+    </div>
+    <div class="item-box">
+        <div class="bg">
+        <img src="../static/save/1.png" class="img-container">
+        </div>
+    </div>
+    -->
+    <span class="item-line"></span>
+    <span class="item-line"></span>
+    <span class="item-line"></span>
+    <span class="item-line"></span>
+</div>
 {% endblock %}
 
 {% block scripts %}
