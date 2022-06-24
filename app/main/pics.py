@@ -3,15 +3,19 @@ import cv2
 import os
 from cv2 import calcHist
 from cv2 import solve
+import functools
 
 from sqlalchemy import false
 
 def judge(img1, img2):
     p1 = cv2.imread(os.path.dirname(__file__)[0:-4] + 'static\\save\\' + str(img1) + '.png')
+    p1 = cv2.resize(p1,[256,256])
     p2 = cv2.imread(os.path.dirname(__file__)[0:-4] + 'static\\save\\' + str(img2) + '.png')
+    p2 = cv2.resize(p2,[256,256])
     h1 = cv2.calcHist([p1], [2], None, [256], [0,256])
     h2 = cv2.calcHist([p2], [2], None, [256], [0,256])
-    return cv2.compareHist(h1, h2, method=cv2.HISTCMP_CORREL)
+    #return cv2.compareHist(h1, h2, method=cv2.HISTCMP_CORREL)
+    return 1 - cv2.compareHist(h1, h2, method=cv2.HISTCMP_BHATTACHARYYA)
 class Pictures:
     pics = {}
     def __init__(self):
@@ -80,10 +84,15 @@ class Pictures:
         ans = []
         for i in range(0, self.pics['count']):
             res = judge(id, i + 1)
-            if i != id - 1 and res > 0.1:
-                print(str(i+1)+": "+str(res))
-                ans.append(i + 1)
-        return ans
+            if i != id - 1:
+                ans.append([i + 1, res])
+        ans.sort(key=lambda x:x[1], reverse=True) 
+        res=[]
+        for i in ans:
+            if(len(res) < 10 and i[1] > 0.485):
+                res.append(i[0])
+                print(str(i[0])+": "+str(i[1]))
+        return res
 
     def isStared(self, user, picid):
         return user in self.pics['pic'][picid - 1]['starer']

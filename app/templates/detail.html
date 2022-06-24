@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}图语 - 推荐{% endblock %}
+{% block title %}图语 - 匹配{% endblock %}
 
 {% block head %}
 <link href="{{ url_for('static',filename='css/detail.css') }}" rel="stylesheet">
@@ -10,25 +10,26 @@
 {% endblock %}
 
 {% block page_content %}
-
-
-<div class="save" style="margin-top: 10px;">
-    <div class="stitle">匹配推荐：</div>
-</div>
-<div class="all-container">
-    {% for pic in simpics %}
-        <div class="item-box">
-            <div class="bg">
-                <a href="{{url_for('.picture', id=pic)}}">
-                    <img src="../static/save/{{pic}}.png" class="img-container">
-                </a>
+<div class="bg-container">
+    <div class="save" style="height: 10px;">
+        
+    </div>
+    <div class="stitle">匹配共鸣：</div>
+    <div class="all-container">
+        {% for pic in simpics %}
+            <div class="item-box">
+                <div class="bg">
+                    <a href="{{url_for('.picture', id=pic)}}">
+                        <img src="../static/save/{{pic}}.png" class="img-container">
+                    </a>
+                </div>
             </div>
-        </div>
-    {% endfor %}
-    <span class="item-line"></span>
-    <span class="item-line"></span>
-    <span class="item-line"></span>
-    <span class="item-line"></span>
+        {% endfor %}
+        <span class="item-line"></span>
+        <span class="item-line"></span>
+        <span class="item-line"></span>
+        <span class="item-line"></span>
+    </div>
 </div>
 {% endblock %}
 

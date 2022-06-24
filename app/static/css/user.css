@@ -264,7 +264,7 @@
     padding: 20px;
     width: 1100px;
     /* css 瀑布流布局的缺点，需要手动计算出容器的高度 */
-    height: 600px;
+    height: 1400px;
     margin: auto;
     counter-reset: items;
 }
