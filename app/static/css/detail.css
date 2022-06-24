@@ -19,6 +19,14 @@ div {
     counter-reset: items;
 }
 
+.stitle {
+    margin-top: 20px;
+    margin-left: 180px;
+    font-size: larger;
+    font-weight: bolder;
+    color: black;
+}
+
 .item-box {
     position: relative;
     width: 18%;

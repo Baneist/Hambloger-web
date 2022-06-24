@@ -97,7 +97,6 @@ def edit(id):
     edit_post = Post.query.order_by(Post.id.desc()).first()
     return render_template('edit_post.html', form=form, posts=[post], edit_post=edit_post)
 
-
 # 新建图片描述的页面
 @main.route('/new/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -129,8 +128,18 @@ def picture(id):
     stared = picData.isStared(current_user.id, id)
     owned = picData.isOwner(current_user.id, id)
     owner = picData.getOwner(id)
-    ownername = User.query.filter_by(id=id).first().username
-    return render_template('picture.html', star=stared, own=owned, id=id, owner=owner, own_num=picData.getOwnPictureNum(owner), star_num=picData.getStarPictureNum(owner), ownername=ownername)
+    ownername = User.query.filter_by(id=owner).first().username
+    return render_template('picture.html', star=stared, own=owned, id=id, owner=owner, own_num=picData.getOwnPictureNum(owner), star_num=picData.getStarPictureNum(owner), ownername=ownername, describe=picData.getDescribe(id))
+
+user_star_list = False
+@main.route('/type/<username>?<int:status>')
+def type(username, status):
+    global user_star_list
+    if status == 0:
+        user_star_list = False
+    else:
+        user_star_list = True
+    return redirect(url_for('.user', username=username))
 
 # 用户个人主页
 @main.route('/user/<username>')
@@ -144,7 +153,12 @@ def user(username):
     pagination = user.posts.order_by(Post.timestamp.desc()).paginate(
         page, per_page=current_app.config['HAMBLOGER_POSTS_PER_PAGE'],
         error_out=False)
-    return render_template('user.html', user=user, posts=posts, endpoint='.user', pagination=pagination, edit_post=edit_post)
+    global user_star_list
+    if not user_star_list:
+        pics = picData.getOwnPicture(user.id)
+    else:
+        pics = picData.getStarPicture(user.id)
+    return render_template('user.html', user=user, posts=posts, endpoint='.user', pagination=pagination, edit_post=edit_post, haspics=pics)
 
 @main.route('/star/<int:id>')
 @login_required

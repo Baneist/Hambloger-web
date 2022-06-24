@@ -13,12 +13,13 @@
 <div class="bg-container">
     <div style="height: 25px;"></div>
     <div class="work-left work-container">
-        <h3 class="title">偶尔抓拍 这张图真的好好看！</h3>
+        <h3 class="title">{{describe}}</h3>
         {% if star %}
             <a href="{{ url_for('.unstar', id=id) }}"><img src="../static/img/star.png" class="star" /></a>
         {% else %}
             <a href="{{ url_for('.star', id=id) }}"><img src="../static/img/unstar.png" class="star" /></a>
         {% endif %}
+            <a href="{{ url_for('.detail', id=id) }}"><img src="../static/img/share.png" class="star" /></a>
         <center>
             <img class="work-img" src="../static/save/{{id}}.png" />
         </center>
@@ -28,11 +29,11 @@
         <div style="margin-top: 30px;"></div>
         <center>
             <img src= "../static/mask/{{owner}}.png" class="mask" />
-            <a href="#"><div class="ownername">{{ownername}}</div></a>
+            <a href="{{ url_for('.user', username=ownername) }}"><div class="ownername">{{ownername}}</div></a>
         </center>
         <center>
         <div class="owner-status">
-            <a href="#">
+            <a href="{{ url_for('.type', username=ownername, status=0) }}">
                 <div class="own status">
                     <center>
                         <div>发表</div>
@@ -40,7 +41,7 @@
                     </center>
                 </div>
             </a>
-            <a href="#">
+            <a href="{{ url_for('.type', username=ownername, status=1) }}">
                 <div class="status">
                     <center>
                         <div>收藏</div>

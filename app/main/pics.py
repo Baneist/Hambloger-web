@@ -43,6 +43,9 @@ class Pictures:
     def getPictureById(self, id):
         return self.pics['pic'][id - 1]
 
+    def getDescribe(self, id):
+        return self.pics['pic'][id - 1]['describe']
+
     def addStar(self, id, starer):
         self.pics['pic'][id - 1]['star'] += 1
         self.pics['pic'][id - 1]['starer'].append(starer)
@@ -76,7 +79,9 @@ class Pictures:
     def calcSimilar(self, id):
         ans = []
         for i in range(0, self.pics['count']):
-            if i != id - 1 and judge(id, i + 1) > 0.1:
+            res = judge(id, i + 1)
+            if i != id - 1 and res > 0.1:
+                print(str(i+1)+": "+str(res))
                 ans.append(i + 1)
         return ans
 
